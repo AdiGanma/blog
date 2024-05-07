@@ -44,7 +44,11 @@ const ForgotPassword = () => {
                   handleBlur={handleBlur}
                 />
               </div>
-              <Button className="mt-6 w-full" disabled={isLoading}>
+              <Button
+                type="submit"
+                className="mt-6 w-full"
+                disabled={isLoading}
+              >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Submit
               </Button>

@@ -5,23 +5,28 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-interface ForgotPasswordResponse {
+interface ResetPasswordResponse {
   message: string;
 }
 
-const useForgotPassword = () => {
+const useResetPassword = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const forgotPassword = async (email: string) => {
+  const resetPassword = async (password: string, token : string) => {
     try {
       setIsLoading(true);
-      const { data } = await axiosInstance.post<ForgotPasswordResponse>(
-        '/auth/forgot-password',
-        { email },
+      const { data } = await axiosInstance.patch<ResetPasswordResponse>(
+        '/auth/reset-password',
+        { password },
+        {
+            headers:{
+                Authorization:`bearer ${token}`
+            }
+        }
       );
 
       alert(data.message);
-      router.replace('/login');
+      router.replace('/');
     } catch (error) {
       if (error instanceof AxiosError) {
         // FIXME: chane alert to toast
@@ -31,7 +36,7 @@ const useForgotPassword = () => {
       setIsLoading(false);
     }
   };
-  return { forgotPassword, isLoading };
+  return { resetPassword, isLoading };
 };
 
-export default useForgotPassword;
+export default useResetPassword;

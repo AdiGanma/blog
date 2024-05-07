@@ -6,8 +6,10 @@ import FormInput from '@/components/FormInput';
 import { Button } from '@/components/ui/button';
 import { validationSchema } from './validationSchema';
 import useLogin from '@/hooks/api/auth/useLogin';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
+  const router = useRouter();
   const { login } = useLogin();
   const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
     useFormik({
@@ -55,6 +57,12 @@ const Login = () => {
                   handleChange={handleChange}
                   handleBlur={handleBlur}
                 />
+                <p
+                  className="text-end text-xs cursor-pointer"
+                  onClick={() => router.push('/forgot-password')}
+                >
+                  Forgot Password
+                </p>
               </div>
               <Button className="mt-6 w-full">Register</Button>
             </form>
