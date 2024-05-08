@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 interface RegisterArgs extends Omit<User, 'id'> {
   password: string;
 }
+
 const useRegister = () => {
   const router = useRouter();
   const register = async (payload: RegisterArgs) => {
